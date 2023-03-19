@@ -34,3 +34,5 @@ Data/x_train_imbalanced.npy
 Data/y_train_imbalanced.npy
 Data/Reuters-21578/reut2-020.sgm
 Data/Reuters-21578/README.txt
+X_test.npy
+*.npy
