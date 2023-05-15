@@ -48,10 +48,14 @@ def load_data(name):
     elif name == "MNIST":
         import tensorflow as tf
         (X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
+        #The reshaping operation converts the images from a grid of pixels to a vector representation
         X_train = X_train.reshape((X_train.shape[0],X_train.shape[1]*X_train.shape[2]))
         X_test  = X_test.reshape((X_test.shape[0],X_test.shape[1]*X_test.shape[2]))
         X_train = X_train.astype('float32')
-        X_test  = X_test.astype('float32')    
+        X_test  = X_test.astype('float32')
+        print(X_test)
+        print(X_train)
+        #This scaler object is used to standardize the data based on the mean and standard deviation of the training set.
         scaler = preprocessing.StandardScaler().fit(X_train)
 
     elif name=="SMK":

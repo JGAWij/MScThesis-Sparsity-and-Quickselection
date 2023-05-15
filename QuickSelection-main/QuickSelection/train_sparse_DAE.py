@@ -50,7 +50,7 @@ batchSize=100
 dropoutRate=0.2
 learningRate=0.01
 momentum=0.9
-epsilon = 13
+epsilon = 13 #a given sparsity level
 zeta = 0.2
 
 for i in range(5):

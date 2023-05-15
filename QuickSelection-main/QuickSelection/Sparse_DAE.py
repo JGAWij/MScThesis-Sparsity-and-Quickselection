@@ -4,7 +4,7 @@ from scipy.sparse import lil_matrix
 from scipy.sparse import coo_matrix
 from scipy.sparse import dok_matrix
 #the "sparseoperations" Cython library was tested in Ubuntu 16.04. Please note that you may encounter some "solvable" issues if you compile it in Windows.
-import sparseoperations
+#import sparseoperations
 import datetime
 from other_classes import Sigmoid, tanh
 import scipy
@@ -101,9 +101,9 @@ class Sparse_DAE:
         dw = coo_matrix(self.w[self.n_layers - 1])
 
         # compute backpropagation updates
-        sparseoperations.backpropagation_updates_Cython(a[self.n_layers - 1],delta,dw.row,dw.col,dw.data)# If you have problems with Cython please use the backpropagation_updates_Numpy method by uncommenting the line below and commenting the one above. Please note that the running time will be much higher
+        #sparseoperations.backpropagation_updates_Cython(a[self.n_layers - 1],delta,dw.row,dw.col,dw.data)# If you have problems with Cython please use the backpropagation_updates_Numpy method by uncommenting the line below and commenting the one above. Please note that the running time will be much higher
         # If you have problems with Cython please use the backpropagation_updates_Numpy method by uncommenting the line below and commenting the one above. Please note that the running time will be much higher
-        #backpropagation_updates_Numpy(a[self.n_layers - 1], delta, dw.row, dw.col, dw.data)
+        backpropagation_updates_Numpy(a[self.n_layers - 1], delta, dw.row, dw.col, dw.data)
         
         update_params = {
             self.n_layers - 1: (dw.tocsr(), delta)
@@ -113,9 +113,9 @@ class Sparse_DAE:
             dw = coo_matrix(self.w[i - 1])
 
             # compute backpropagation updates
-            sparseoperations.backpropagation_updates_Cython(a[i - 1], delta, dw.row, dw.col, dw.data)# If you have problems with Cython please use the backpropagation_updates_Numpy method by uncommenting the line below and commenting the one above. Please note that the running time will be much higher
+            #sparseoperations.backpropagation_updates_Cython(a[i - 1], delta, dw.row, dw.col, dw.data)# If you have problems with Cython please use the backpropagation_updates_Numpy method by uncommenting the line below and commenting the one above. Please note that the running time will be much higher
             # If you have problems with Cython please use the backpropagation_updates_Numpy method by uncommenting the line below and commenting the one above. Please note that the running time will be much higher
-            #backpropagation_updates_Numpy(a[i - 1], delta, dw.row, dw.col, dw.data)
+            backpropagation_updates_Numpy(a[i - 1], delta, dw.row, dw.col, dw.data)
 
             update_params[i - 1] = (dw.tocsr(), delta)
             for k, v in update_params.items():
