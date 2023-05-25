@@ -12,7 +12,7 @@ from statistics import stdev
 from sklearn.decomposition import PCA
 from sklearn.svm import SVC
 from scipy import sparse
-import networkx as nx
+#import networkx as nx
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 

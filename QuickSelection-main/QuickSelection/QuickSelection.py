@@ -18,7 +18,7 @@ import time
 from fs_utils import feature_selection
 import sklearn
 import scipy
-import sklearn.utils.linear_assignment_ as la
+from scipy.optimize import linear_sum_assignment as la #The linear_assignment function is deprecated in 0.21 and will be removed from 0.23, but sklearn.utils.linear_assignment_ can be replaced by scipy.optimize.linear_sum_assignment
 from sklearn.metrics import accuracy_score 
 
 

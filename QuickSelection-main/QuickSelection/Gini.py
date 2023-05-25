@@ -1,5 +1,9 @@
-def Gini_algorithm(target_gini, n):
-    # target_gini is the gini to be reached with the eventual distribution, n is the number of categories in the eventual distribution
+import numpy as np
+
+def gini_algorithm(target_gini, num_categories):
+
+    print("Start gini-process")
+    # target_gini is the gini to be reached with the eventual distribution, num_categories is the number of categories in the eventual distribution
     # Define the gini function
     def gini(x):
         total = 0
@@ -14,15 +18,15 @@ def Gini_algorithm(target_gini, n):
     # Use binary search to find the appropriate value for the first element
     while True:
         mid = (lower_bound + upper_bound) / 2
-        x = np.array([mid] + [1] * (n - 1))
+        x = np.array([mid] + [1] * (num_categories - 1))
         g = gini(x)
 
         if abs(g - target_gini) < 1e-3:
-            r = x / np.sum(x)
-            print("Relative distribution over n categories:", r)
-            g = gini(r)
+            distribution = x / np.sum(x)
+            print("Relative distribution over num_categories:", distribution)
+            g = gini(distribution)
             print("Gini coefficient:", g)
-            return g, r
+            return g, distribution
 
         elif g > target_gini:
             upper_bound = mid
@@ -30,7 +34,8 @@ def Gini_algorithm(target_gini, n):
             lower_bound = mid
 
 
-target_gini = 0.5
-n = 10
-g, r = find_relative_distribution_given_targetgini(target_gini, n)
+#target_gini = 0.5
+#num_categories = 10
+#g, r = gini_algorithm(target_gini, n)
+
 

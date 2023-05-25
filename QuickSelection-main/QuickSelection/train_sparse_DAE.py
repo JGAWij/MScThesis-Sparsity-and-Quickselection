@@ -26,9 +26,11 @@ import numpy as np
 import sys; sys.path.append(os.getcwd())  
 from Sparse_DAE import Sparse_DAE 
 from other_classes import Sigmoid, MSE, tanh, Relu, LeakyRelu, Linear 
-from utils import load_data, check_path
+from utils import load_data, check_path, imbalanced_data
 import datetime
 import time
+from Gini import gini_algorithm
+from main import target_gini
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 import argparse
@@ -39,8 +41,6 @@ parser.add_argument('--dataset_name', type=str, required=True, help='dataset_nam
 parser.add_argument("--epoch", help="epoch", type=int)
 args = parser.parse_args()
 dataset_name = args.dataset_name
-
-
 
 strtime = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 noise_factor = 0.2
@@ -61,7 +61,13 @@ for i in range(5):
     print("epsilon = ", epsilon)
     print("zeta = ", zeta)
     X_train, Y_train, X_test, Y_test = load_data(dataset_name)
-    noTrainingSamples = X_train.shape[0]
+    print("1. Data loaded")
+    num_categories = len(set(Y_train))
+    gini, distribution = gini_algorithm(target_gini, num_categories)
+    print("2. Gini_algorithm done")
+    adjusted_X_train, adjusted_y_train, adjusted_X_test, adjusted_y_test = imbalanced_data(X_train, Y_train, X_test, Y_test, distribution)
+    print("3. Imbalanced Dataset is made")
+    noTrainingSamples = adjusted_X_train.shape[0]
 
  
     start = time.time()
